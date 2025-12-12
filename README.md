@@ -4,11 +4,58 @@ You need to have ollama installed and running in the background on your machine 
 
 The textCapture tool copies text you highlight to a file. This is how I extract textbook content.
 
-## Autocard
-Run autocard.py like this:
-```
-python3 autocard.py [textbook] [flashcards file]
+## How to Run in Terminal
+
+### Prerequisites
+1. **Install Python 3** (if not already installed)
+   - Check if Python is installed: `python3 --version`
+   - Download from: https://www.python.org/downloads/
+
+2. **Install Ollama**
+   - Download from: https://ollama.ai/
+   - Start Ollama: `ollama serve` (in a separate terminal)
+   - Pull the model: `ollama pull llama3:8b`
+
+3. **Install Python Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+   Note: Windows users need `windows-curses` package (included in requirements.txt)
+
+### Running Autocard
+Generate flashcards from a textbook file:
+```bash
+python3 autocard.py [textbook_file] [output_flashcards_file]
 ```
 
-## Text Caputre
-Windows users will likeley have to edit one line to use `ctrl` instead of `command`. There is a comment explaining which line in the file.
+**Example:**
+```bash
+python3 autocard.py textbook.txt flashcards.tsv
+```
+
+This will:
+- Read content from `textbook.txt`
+- Generate flashcards using the Ollama LLM
+- Save flashcards to `flashcards.tsv`
+
+You can configure settings by editing `flashcards.conf` or through the interactive menu.
+
+### Running Text Capture
+Capture highlighted text to a file:
+```bash
+python3 textCapture.py
+```
+
+This will:
+- Run in the background and monitor your clipboard
+- When you highlight text and press Ctrl+C (or Cmd+C on Mac), it saves to `copied_text.txt`
+- Press Ctrl+C in the terminal to stop the script
+
+**Important:** Windows users need to edit line 17 in `textCapture.py` to change `'command'` to `'ctrl'`
+
+## Troubleshooting
+
+- **"Module not found" error**: Run `pip install -r requirements.txt`
+- **Ollama connection error**: Make sure Ollama is running with `ollama serve`
+- **Model not found**: Install the model with `ollama pull llama3:8b`
+- **Windows curses error**: Install with `pip install windows-curses`
